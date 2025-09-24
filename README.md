@@ -1,2 +1,2 @@
-# liceum_website
+# Liceum  website
 Simple social network Django website
