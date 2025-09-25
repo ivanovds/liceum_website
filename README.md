@@ -5,3 +5,4 @@ Simple social network Django website
 - ivanovds: Daniil Ivanov
 - kiriatop: Kyryl Okhrimenko
 - Sacvartello: Heorhii Dvorskyi
+- WreckedHustle: Illia Kolesnikov
