@@ -6,4 +6,4 @@ Simple social network Django website
 - kiriatop: Kyryl Okhrimenko
 - Sacvartello: Heorhii Dvorskyi
 - WreckedHustle: Illia Kolesnikov
-
+- Roxy2010: Roksana Kazarova
