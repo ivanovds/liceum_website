@@ -12,6 +12,10 @@ Simple social network Django website
 ### Project setup:
 
 - **Install required software:** Python 3, pip, git, Postgresql
+- Python: https://www.python.org/downloads/
+- Pip: https://pip.pypa.io/en/stable/installation/
+- Git: https://git-scm.com/downloads
+- Postgresql: https://www.postgresql.org/download/
 
 - **Clone the repository**
    ```bash
@@ -41,6 +45,8 @@ Simple social network Django website
    cp .env.local.example .env
    
    # Edit .env file and add your configuration
+   # If you do not wanna install and use Postgresql, simply change the DATABASE_URL to sqlite database:
+   DATABASE_URL=sqlite:///db.sqlite3
    ```
 
 - **Run database migrations**
