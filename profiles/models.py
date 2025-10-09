@@ -10,13 +10,15 @@ class Profile(models.Model):
     )
     class_field = models.IntegerField()
     date_of_birth = models.DateField()
-    bio = models.TextField()
+    bio = models.TextField(
+        max_length=500,
+    )
     hobbies = models.TextField(
         blank=True,
         null=True
     )
     interesting_facts = models.CharField(
-        max_length=300,
+        max_length=500,
         blank=True,
         null=True
     )
