@@ -8,6 +8,7 @@ Simple social network Django website
 - WreckedHustle: Illia Kolesnikov
 - W1ngr1l: Harazha Makar
 - Roxy2010: Roksana Kazarova
+- Lullaby-fu: Kateryna Shynkarenko
 
 ### Project setup:
 
