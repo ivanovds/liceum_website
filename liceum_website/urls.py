@@ -17,8 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-# TODO Change accounts.views to needed path
-from accounts.views import (
+from profiles.views import (
     register_view,
     login_view,
     logout_view
