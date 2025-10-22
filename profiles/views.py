@@ -8,30 +8,7 @@ from django.views import View
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 
-
-
-def login_view(request):
-    print(request)
-    if request.method == "POST":
-        username = request.POST.get("username")
-        password = request.POST.get("password")
-
-        user = authenticate(request, username=username, password=password)
-
-        if user is not None:
-            login(request, user)
-            messages.success(request, f"Вітаємо, {user.username}!")
-            return redirect(request.GET.get('next', 'home'))
-        else:
-            messages.error(request, "Невірне ім’я користувача або пароль.")
-            return render(request, "login.html")
-
-    return render(request, "login.html")
-
-@login_required()
-def logout_view(request):
-    logout(request)
-    return redirect('/')
+from profiles.forms import UserRegisterForm
 
 
 class RegisterView(View):
@@ -57,7 +34,7 @@ class RegisterView(View):
         if request.POST is None:
             raise ValueError('No POST data got!')
 
-        form = our_form(request.POST) # form needed here!
+        form = UserRegisterForm(request.POST)
 
         if form.is_valid():
             username = form.cleaned_data.get('username')
@@ -68,3 +45,27 @@ class RegisterView(View):
 
         return HttpResponseRedirect('redirect url')
 
+
+def login_view(request):
+    print(request)
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            messages.success(request, f"Вітаємо, {user.username}!")
+            return redirect(request.GET.get('next', 'home'))
+        else:
+            messages.error(request, "Невірне ім’я користувача або пароль.")
+            return render(request, "login.html")
+
+    return render(request, "login.html")
+
+
+@login_required()
+def logout_view(request):
+    logout(request)
+    return redirect('/')
