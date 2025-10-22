@@ -14,10 +14,10 @@ from profiles.forms import UserRegisterForm
 class RegisterView(View):
     def __init__(self):
         super().__init__()
-        self.__template_name = ...#add a template
+        self.__template_name = 'profiles/register.html'
 
     def get(self, request, *args, **kwargs):
-        form = ... # form needed here!
+        form = UserRegisterForm()
         return render(request, self.__template_name, {'form': form})
 
     @classmethod
