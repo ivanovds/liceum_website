@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+        <div class="container account-forms-container">
+          <div class="row justify-content-center">
+                {% if not user.is_authenticated %}
+                  <div class="col-auto">
+                        <span>Already have an Account?</span>
+                      <form class='log-in-form ' method='POST' autocomplete="off">
+                          {% csrf_token %}
+                          {{ form }}
+                          <input type='submit' id="log-in-button" value="Log in">
+                      </form>
+                      {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <li>{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                      {% endif %}
+                  </div>
+                {% else %}
+                    <p>You are already logged in.</p>
+                {% endif %}
+            </div>
+        </div>
+
+</body>
+</html>

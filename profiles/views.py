@@ -8,7 +8,7 @@ from django.views import View
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 
-from profiles.forms import UserRegisterForm
+from profiles.forms import UserRegisterForm, LoginForm
 
 
 class RegisterView(View):
@@ -24,7 +24,7 @@ class RegisterView(View):
     def validate_user(cls, username, password):
         if User.objects.filter(username=username, password=password).exists():
             raise ValueError('Hehe, you can`t create several same users')
-
+#blahblahblah@gmail.com
     @classmethod
     def save_user(cls, form, username, password):
         extra_fields = form.cleaned_data.pop('password1').pop('password2').pop('username')
@@ -48,6 +48,7 @@ class RegisterView(View):
 
 def login_view(request):
     print(request)
+    form = LoginForm()
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
@@ -60,9 +61,9 @@ def login_view(request):
             return redirect(request.GET.get('next', 'home'))
         else:
             messages.error(request, "Невірне ім’я користувача або пароль.")
-            return render(request, "login.html")
+            return render(request, "profiles/login.html", {'form': form})
 
-    return render(request, "login.html")
+    return render(request, "profiles/login.html", {'form': form})
 
 
 @login_required()
