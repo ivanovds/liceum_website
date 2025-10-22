@@ -12,16 +12,16 @@
                         <span>Already have an Account?</span>
                       <form class='log-in-form ' method='POST' autocomplete="off">
                           {% csrf_token %}
-                          {{ form }}
+                          {{ login_form }}
                           <input type='submit' id="log-in-button" value="Log in">
                       </form>
                       {% if messages %}
                         <ul class="messages">
                             {% for message in messages %}
-                            <li>{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                            <li>{{ message }}</li>
                             {% endfor %}
                         </ul>
-                      {% endif %}
+                        {% endif %}
                   </div>
                 {% else %}
                     <p>You are already logged in.</p>
