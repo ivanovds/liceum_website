@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block content %}
         <div class="container account-forms-container">
           <div class="row justify-content-center">
                 {% if not user.is_authenticated %}
@@ -12,16 +8,16 @@
                         <span>Already have an Account?</span>
                       <form class='log-in-form ' method='POST' autocomplete="off">
                           {% csrf_token %}
-                          {{ login_form }}
+                          {{ login_form|safe }}
                           <input type='submit' id="log-in-button" value="Log in">
                       </form>
                       {% if messages %}
                         <ul class="messages">
                             {% for message in messages %}
-                            <li>{{ message }}</li>
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
                             {% endfor %}
                         </ul>
-                        {% endif %}
+                      {% endif %}
                   </div>
                 {% else %}
                     <p>You are already logged in.</p>
@@ -29,5 +25,4 @@
             </div>
         </div>
 
-</body>
-</html>
+{% endblock content %}

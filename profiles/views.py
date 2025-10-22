@@ -46,7 +46,7 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            return redirect('/')
+            return redirect(request.GET.get('next', 'home'))
         else:
             messages.error(request, "User not found")
 
@@ -57,3 +57,7 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+
+def home_view(request):
+    return render(request, "home.html")
