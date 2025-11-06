@@ -5,7 +5,8 @@ from django.contrib import messages
 from django.views import View
 from django.contrib.auth.models import User
 
-from profiles.forms import UserRegisterForm, LoginForm
+from profiles.forms import UserRegisterForm, LoginForm, ProfileForm
+from profiles.models import Profile
 
 
 class RegisterView(View):
@@ -61,3 +62,33 @@ def logout_view(request):
 
 def home_view(request):
     return render(request, "home.html")
+
+
+class ProfileView(View):
+    def __init__(self):
+        super().__init__()
+        self.__template_name = 'profile.html'
+
+    def get(self, request, *args, **kwargs):
+        profile_form = ProfileForm()
+        return render(request, self.__template_name, {'profile_form': profile_form})
+
+    def post(self, request, *args, **kwargs):
+        if request.POST is None:
+            raise ValueError('No POST data got!')
+
+        profile_form = ProfileForm(request.POST)
+
+        if profile_form.is_valid():
+            role = profile_form.cleaned_data.get('role')
+            class_number = profile_form.cleaned_data.get('class_number')
+            class_name = profile_form.cleaned_data.get('class_name')
+            date_of_birth = profile_form.cleaned_data.get('date_of_birth')
+            bio = profile_form.cleaned_data.get('bio')
+            interesting_facts = profile_form.cleaned_data.get('interesting_facts')
+
+            user = request.user
+            Profile.objects.update_or_create(user=user, defaults={'role': role, 'class_number': class_number, 'class_name': class_name, 'date_of_birth': date_of_birth, 'bio': bio, 'interesting_facts': interesting_facts})
+            return redirect('/')
+        else:
+            return render(request, self.__template_name, {'sign_up_form': profile_form})

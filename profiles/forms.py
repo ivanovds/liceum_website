@@ -43,8 +43,8 @@ class ProfileForm(forms.Form):
 
     class Meta:
         model = Profile
-        fields = ('role',  'class_number', 'class_name', 'date_of_birth')
-    
+        fields = ('role',  'class_number', 'class_name', 'date_of_birth', 'bio', 'hobbies', 'interesting_facts')
+
     def clean_class_number(self):
         role = self.cleaned_data.get('role')
         class_number = self.cleaned_data.get('class_number')
