@@ -1,5 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from models import Profile
 from django import forms
 
 
@@ -33,9 +34,20 @@ class LoginForm(forms.Form):
 
 class ProfileForm(forms.Form):
     role = forms.ChoiceField(choices=[('ST', 'Student'), ('TC', 'Teacher')])
-    class_number = forms.IntegerField(max_value=11, min_value=1, widget=forms.TextInput(attrs={'placeholder': 'Class number'}))
-    class_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Class name'}))
+    class_number = forms.IntegerField(max_value=11, min_value=1, widget=forms.TextInput(attrs={'placeholder': 'Class number'}), required=False)
+    class_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Class name'}), required=False)
+    date_of_birth = forms.DateField(widget=forms.DateInput(attrs={'placeholder': 'Birth Date'}))
+    bio = forms.TextField(required=False, widget=forms.TextInput(attrs={'placeholder': 'Bio'}))
+    hobbies = forms.TextField(required=False, widget=forms.TextInput(attrs={'placeholder': 'Hobbies'}))
+    interesting_facts = forms.CharField(max_length=500, required=False, widget=forms.TextInput(attrs={'placeholder': 'Facts'}))
 
     class Meta:
-      model = User
-      fields = ('username',  'email', 'password1', 'password2')
+        model = Profile
+        fields = ('role',  'class_number', 'class_name', 'date_of_birth')
+    
+    def clean_class_number(self):
+        role = self.cleaned_data.get('role')
+        class_number = self.cleaned_data.get('class_number')
+        if role == 'ST' and class_number is None:
+            raise forms.ValidationError('Student must have class_number')
+        return class_number
