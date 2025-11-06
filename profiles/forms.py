@@ -29,3 +29,13 @@ class UserRegisterForm(UserCreationForm):
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'placeholder': 'Username'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
+
+
+class ProfileForm(forms.Form):
+    role = forms.ChoiceField(choices=[('ST', 'Student'), ('TC', 'Teacher')])
+    class_number = forms.IntegerField(max_value=11, min_value=1, widget=forms.TextInput(attrs={'placeholder': 'Class number'}))
+    class_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Class name'}))
+
+    class Meta:
+      model = User
+      fields = ('username',  'email', 'password1', 'password2')
