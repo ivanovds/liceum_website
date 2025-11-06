@@ -37,8 +37,8 @@ class ProfileForm(forms.Form):
     class_number = forms.IntegerField(max_value=11, min_value=1, widget=forms.TextInput(attrs={'placeholder': 'Class number'}), required=False)
     class_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Class name'}), required=False)
     date_of_birth = forms.DateField(widget=forms.DateInput(attrs={'placeholder': 'Birth Date'}))
-    bio = forms.TextField(required=False, widget=forms.TextInput(attrs={'placeholder': 'Bio'}))
-    hobbies = forms.TextField(required=False, widget=forms.TextInput(attrs={'placeholder': 'Hobbies'}))
+    bio = forms.CharField(required=False, widget=forms.Textarea(attrs={'placeholder': 'Bio'}))
+    hobbies = forms.CharField(required=False, widget=forms.Textarea(attrs={'placeholder': 'Hobbies'}))
     interesting_facts = forms.CharField(max_length=500, required=False, widget=forms.TextInput(attrs={'placeholder': 'Facts'}))
 
     class Meta:
