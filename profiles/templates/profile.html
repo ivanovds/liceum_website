@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+        <div class="container account-forms-container">
+          <div class="row justify-content-center">
+
+                  <div class="col-auto ">
+                        <span>Your profile</span>
+                      <form class="profile-form" method="POST">
+                          {% csrf_token %}
+                          {% for field in profile_form %}
+                              <div class=" ">
+                                  <div>{{ field }}</div>
+                                  {% if field.errors %}
+                                      {% for error in field.errors %}
+                                          <div>
+                                              {{ error }}
+                                          </div>
+                                      {% endfor %}
+                                  {% endif %}
+                              </div>
+                          {% endfor %}
+                          <input type="submit" id="profile-button" value="Save">
+                      </form>
+                        {% if messages %}
+                            <ul class="messages">
+                                {% for message in messages %}
+                                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                  </div>
+            </div>
+        </div>
+
+{% endblock content %}
