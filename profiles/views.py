@@ -70,7 +70,12 @@ class ProfileView(View):
         self.__template_name = 'profile.html'
 
     def get(self, request, *args, **kwargs):
-        profile_form = ProfileForm()
+        user = request.user
+        try:
+            profile = Profile.objects.get(user=user)
+        except Profile.DoesNotExist:
+            profile = None
+        profile_form = ProfileForm(instance=profile)
         return render(request, self.__template_name, {'profile_form': profile_form})
 
     def post(self, request, *args, **kwargs):

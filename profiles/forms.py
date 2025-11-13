@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from models import Profile
+from .models import Profile
 from django import forms
 
 
@@ -32,7 +32,7 @@ class LoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
 
 
-class ProfileForm(forms.Form):
+class ProfileForm(forms.ModelForm):
     role = forms.ChoiceField(choices=[('ST', 'Student'), ('TC', 'Teacher')])
     class_number = forms.IntegerField(max_value=11, min_value=1, widget=forms.TextInput(attrs={'placeholder': 'Class number'}), required=False)
     class_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Class name'}), required=False)
