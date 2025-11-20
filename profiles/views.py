@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.utils.decorators import method_decorator
 from django.views import View
 from django.contrib.auth.models import User
 
@@ -60,10 +61,12 @@ def logout_view(request):
     return redirect('/')
 
 
+@login_required()
 def home_view(request):
     return render(request, "home.html")
 
 
+@method_decorator(login_required, name='dispatch')
 class ProfileView(View):
     def __init__(self):
         super().__init__()
@@ -98,7 +101,7 @@ class ProfileView(View):
                 user=user,
                 defaults={
                     'role': role, 'class_number': class_number, 'class_name': class_name,
-                    'date_of_birth': date_of_birth, 'bio': bio, 'interesting_facts': interesting_facts, 'hobbies': hobbies 
+                    'date_of_birth': date_of_birth, 'bio': bio, 'interesting_facts': interesting_facts, 'hobbies': hobbies
                 }
             )
             return redirect('profile')
