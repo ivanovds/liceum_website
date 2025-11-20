@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 
 class Profile(models.Model):
-    PROFESSION_CHOICES = [('ST','Student'),('TC','Teacher')]
+    PROFESSION_CHOICES = [('ST', 'Student'), ('TC', 'Teacher')]
 
     role = models.CharField(
         max_length=120,

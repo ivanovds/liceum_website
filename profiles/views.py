@@ -1,9 +1,11 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.utils.decorators import method_decorator
 from django.views import View
+from django.views.generic.list import ListView
 from django.contrib.auth.models import User
 
 from profiles.forms import UserRegisterForm, LoginForm, ProfileForm
@@ -107,5 +109,16 @@ class ProfileView(View):
             return redirect('profile')
         else:
             return render(request, self.__template_name, {'profile_form': profile_form})
-        
-        
+
+class ProfilesView(ListView):
+    model = Profile
+    template_name = 'profile_list.html'
+    #paginate_by = 100
+    def get_queryset(self):
+        return Profile.objects.filter(~Q(user=self.request.user)).order_by("-class_number")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['profiles'] = self.get_queryset()
+        return context
+

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if profiles %}
+        {% for profile in profiles %}
+            <p>{{ profile.role }}</p>
+            <p>{{ profile.class_number }}</p>
+            <p>{{ profile.user.username }}</p>
+        {% endfor %}
+    {% else %}
+        <p>No profiles</p>
+    {% endif %}
+{% endblock content %}
