@@ -100,6 +100,6 @@ class ProfileView(View):
                     'date_of_birth': date_of_birth, 'bio': bio, 'interesting_facts': interesting_facts
                 }
             )
-            return redirect('')
+            return redirect('profile')
         else:
             return render(request, self.__template_name, {'profile_form': profile_form})
