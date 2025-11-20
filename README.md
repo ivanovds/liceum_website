@@ -29,7 +29,7 @@ Simple social network Django website
    python -m virtualenv .venv
    
    # On Windows:
-   .venv\Scripts\activate
+   ``.venv\Scripts\activate``
    
    # On macOS/Linux:
    source .venv/bin/activate

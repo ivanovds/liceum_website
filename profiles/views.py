@@ -91,15 +91,18 @@ class ProfileView(View):
             date_of_birth = profile_form.cleaned_data.get('date_of_birth')
             bio = profile_form.cleaned_data.get('bio')
             interesting_facts = profile_form.cleaned_data.get('interesting_facts')
+            hobbies = profile_form.cleaned_data.get('hobbies')
             user = request.user
 
             Profile.objects.update_or_create(
                 user=user,
                 defaults={
                     'role': role, 'class_number': class_number, 'class_name': class_name,
-                    'date_of_birth': date_of_birth, 'bio': bio, 'interesting_facts': interesting_facts
+                    'date_of_birth': date_of_birth, 'bio': bio, 'interesting_facts': interesting_facts, 'hobbies': hobbies 
                 }
             )
             return redirect('profile')
         else:
             return render(request, self.__template_name, {'profile_form': profile_form})
+        
+        
