@@ -124,12 +124,14 @@ class ProfileView(View):
 class ProfilesView(ListView):
     model = Profile
     template_name = 'profile_list.html'
-    #paginate_by = 100
+    paginate_by = 1
+
     def get_queryset(self):
         return Profile.objects.filter(~Q(user=self.request.user)).order_by("-class_number")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['profiles'] = self.get_queryset()
+        print(context)
         return context
 
