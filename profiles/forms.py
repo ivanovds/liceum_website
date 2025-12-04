@@ -40,10 +40,11 @@ class ProfileForm(forms.ModelForm):
     bio = forms.CharField(required=False, widget=forms.Textarea(attrs={'placeholder': 'Bio'}))
     hobbies = forms.CharField(required=False, widget=forms.Textarea(attrs={'placeholder': 'Hobbies'}))
     interesting_facts = forms.CharField(max_length=500, required=False, widget=forms.TextInput(attrs={'placeholder': 'Facts'}))
+    image = forms.ImageField(required=False)
 
     class Meta:
         model = Profile
-        fields = ('role',  'class_number', 'class_name', 'date_of_birth', 'bio', 'hobbies', 'interesting_facts')
+        fields = ('role',  'class_number', 'class_name', 'date_of_birth', 'bio', 'hobbies', 'interesting_facts', 'image')
 
     def clean_class_number(self):
         role = self.cleaned_data.get('role')

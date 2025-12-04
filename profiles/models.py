@@ -3,6 +3,11 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+def upload_avatar(instance, filename):
+    """Returns path to avatar in media directory."""
+    return '/'.join(['profiles', str(instance.user.id), filename])
+
+
 class Profile(models.Model):
     PROFESSION_CHOICES = [('ST', 'Student'), ('TC', 'Teacher')]
 
@@ -18,6 +23,10 @@ class Profile(models.Model):
     bio = models.TextField(blank=True, null=True)
     hobbies = models.TextField(blank=True, null=True)
     interesting_facts = models.CharField(max_length=500, blank=True, null=True)
+    avatar = models.ImageField(upload_to=upload_avatar, null=False, blank=False, default='default_avatar.jpg',)
+
+    def get_absolute_url(self):
+        return "/profiles/%i/" % self.id
 
     def __str__(self):
         return f'{self.user.username} {self.role}'

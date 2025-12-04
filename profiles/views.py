@@ -81,13 +81,17 @@ class ProfileView(View):
         except Profile.DoesNotExist:
             profile = None
         profile_form = ProfileForm(instance=profile)
-        return render(request, self.__template_name, {'profile_form': profile_form})
+        context = {
+            'profile_form': profile_form,
+            'profile': profile,
+        }
+        return render(request, self.__template_name, context)
 
     def post(self, request, *args, **kwargs):
         if request.POST is None:
             raise ValueError('No POST data got!')
 
-        profile_form = ProfileForm(request.POST)
+        profile_form = ProfileForm(request.POST, request.FILES or None)
 
         if profile_form.is_valid():
             role = profile_form.cleaned_data.get('role')
@@ -99,13 +103,20 @@ class ProfileView(View):
             hobbies = profile_form.cleaned_data.get('hobbies')
             user = request.user
 
-            Profile.objects.update_or_create(
+            defaults_dict = {
+                'role': role, 'class_number': class_number, 'class_name': class_name,
+                'date_of_birth': date_of_birth, 'bio': bio, 'interesting_facts': interesting_facts, 'hobbies': hobbies,
+            }
+
+            image = profile_form.cleaned_data.get('image')
+            if image:
+                defaults_dict['avatar'] = image
+
+            profile, _ =  Profile.objects.update_or_create(
                 user=user,
-                defaults={
-                    'role': role, 'class_number': class_number, 'class_name': class_name,
-                    'date_of_birth': date_of_birth, 'bio': bio, 'interesting_facts': interesting_facts, 'hobbies': hobbies
-                }
+                defaults=defaults_dict
             )
+
             return redirect('profile')
         else:
             return render(request, self.__template_name, {'profile_form': profile_form})
