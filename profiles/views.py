@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from django.contrib.auth.models import User
 
 from profiles.forms import UserRegisterForm, LoginForm, ProfileForm
@@ -112,7 +113,7 @@ class ProfileView(View):
             if image:
                 defaults_dict['avatar'] = image
 
-            profile, _ =  Profile.objects.update_or_create(
+            profile, _ = Profile.objects.update_or_create(
                 user=user,
                 defaults=defaults_dict
             )
@@ -132,5 +133,14 @@ class ProfilesView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['profiles'] = self.get_queryset()
+        return context
+
+
+class ProfilesDetailView(DetailView):
+    model = Profile
+    template_name = 'profile_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         return context
 

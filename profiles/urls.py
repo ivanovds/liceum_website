@@ -9,7 +9,8 @@ from profiles.views import (
     logout_view,
     home_view, 
     ProfileView,
-    ProfilesView
+    ProfilesView,
+    ProfilesDetailView
 )
 
 urlpatterns = [
@@ -18,5 +19,6 @@ urlpatterns = [
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
     path('profile/', ProfileView.as_view(), name='profile'),
-    path('profiles/', ProfilesView.as_view(), name='profiles')
+    path('profiles/', ProfilesView.as_view(), name='profiles'),
+    path('profiles/<int:pk>/', ProfilesDetailView.as_view(), name='profiles-detail')
 ]
