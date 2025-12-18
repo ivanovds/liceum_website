@@ -1,0 +1,30 @@
+<div class="profile-detail-container">
+    <div class="row justify-content-center">
+        <div class='col-auto padding-reset  profile-detail-content'>
+            <div class="row justify-content-start profile-preview-txt">
+              <div class="col-auto author">{{ profile.user.username }}</div>
+            </div>
+            <div class="row justify-content-start profile-info">
+                <div class="col-12"><span>Email:</span> {{ profile.user.email}}</div>
+                {% if  profile.profession %}
+                    <div class="col-12"><span>Profession:</span> {{ profile.get_profession_display }}</div>
+                {% endif %}
+                {% if  profile.bio %}
+                    <div class="col-12 "><p><span>About me:</span> {{ profile.bio|linebreaks }}</p></div>
+                {% endif %}
+             </div>
+                <hr>
+                <p>Avatar:</p> <br>
+                <p class="p_img"><img src='http://127.0.0.1:8000/media/{{ profile.avatar }}' class='img-responsive'/></p>
+
+            {% if images %}
+                <p>Previous avatars:</p>
+            {% endif %}
+            {% for img in images %}
+                <hr>
+                <p class="p_img"><img src='http://127.0.0.1:8000/media/{{ img.image }}' class='img-responsive'/></p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
