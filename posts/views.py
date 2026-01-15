@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.views import View
-from profiles.forms import UserRegisterForm, LoginForm, ProfileForm
+from django.http import HttpResponseRedirect
+from .forms import PostForm
+from .models import Post
+
 
 # Create your views here.
 class NewPostView(View):
@@ -16,16 +19,15 @@ class NewPostView(View):
         if request.POST is None:
             raise ValueError('No POST data got!')
 
-        sign_up_form = UserRegisterForm(request.POST)
+        post_form = PostForm(request.POST)
 
-        if sign_up_form.is_valid():
-            email = sign_up_form.cleaned_data.get('email')
-            username = sign_up_form.cleaned_data.get('username')
-            password = sign_up_form.cleaned_data.get('password1')
+        if post_form.is_valid():
+            author = self.request.user
+            image = post_form.cleaned_data.get('image')
+            main_text = post_form.cleaned_data.get('main_text')
 
-            user = User.objects.create_user(username=username, email=email, password=password)
+            Post.objects.create(author=author, image=image, main_text=main_text)
 
-            login(request, user)
-            return redirect('/')
+            return HttpResponseRedirect('/')  # TODO: add redirect url to posts list
         else:
-            return render(request, self.__template_name, {'sign_up_form': sign_up_form})
+            return render(request, self.__template_name)
