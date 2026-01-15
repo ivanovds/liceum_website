@@ -1,9 +1,10 @@
-from .models import Profile
+from .models import Post
 from django import forms
 
-class ProfileForm(forms.ModelForm):
+
+class PostForm(forms.ModelForm):
     
 
     class Meta:
-        model = Profile
+        model = Post
         fields = ('main_text', 'image')
