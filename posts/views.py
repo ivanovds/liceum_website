@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponseRedirect
+from django.views.generic import ListView
+
 from .forms import PostForm
 from .models import Post
 
@@ -27,6 +29,20 @@ class NewPostView(View):
 
             Post.objects.create(author=author, image=image, main_text=main_text)
 
-            return HttpResponseRedirect('/')  # TODO: add redirect url to posts list
+            return HttpResponseRedirect('/posts/')  # TODO: add redirect url to posts list
         else:
             return render(request, self.__template_name)
+
+
+class PostsView(ListView):
+    model = Post
+    template_name = 'post_list.html'
+    paginate_by = 2
+
+    def get_queryset(self):
+        return Post.objects.all().order_by("-created_at")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['posts'] = self.get_queryset()
+        return context
