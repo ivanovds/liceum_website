@@ -5,7 +5,6 @@ from .forms import PostForm
 from .models import Post
 
 
-# Create your views here.
 class NewPostView(View):
     def __init__(self):
         super().__init__()
