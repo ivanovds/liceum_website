@@ -20,7 +20,7 @@ class NewPostView(View):
         if request.POST is None:
             raise ValueError('No POST data got!')
 
-        post_form = PostForm(request.POST)
+        post_form = PostForm(request.POST, request.FILES or None)
 
         if post_form.is_valid():
             author = self.request.user
@@ -29,7 +29,7 @@ class NewPostView(View):
 
             Post.objects.create(author=author, image=image, main_text=main_text)
 
-            return HttpResponseRedirect('/posts/')  # TODO: add redirect url to posts list
+            return HttpResponseRedirect('/posts/')
         else:
             return render(request, self.__template_name)
 
