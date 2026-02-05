@@ -1,0 +1,18 @@
+<div class="profile-detail-container">
+    <div class="row justify-content-center">
+        <div class='col-auto padding-reset  profile-detail-content'>
+            <div class="row justify-content-start profile-preview-txt">
+              <div class="col-auto author">{{ post.autor.username }}</div>
+           </div>
+        </div>
+                <hr>
+                <p>Image:</p> <br>
+                <p class="p_img"><img src='http://127.0.0.1:8000/media/{{ post.image }}' class='img-responsive'/></p>
+          <div class="row justify-content-start profile-info">
+                {% if  post.main_text %}
+                    <div class="col-12"><span>Text:</span> {{ post.main_text}}</div>
+                {% endif %}
+
+        </div>
+    </div>
+</div>
