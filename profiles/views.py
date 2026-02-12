@@ -13,6 +13,7 @@ from profiles.forms import UserRegisterForm, LoginForm, ProfileForm
 from profiles.models import Profile
 
 
+@method_decorator(login_required, name='dispatch')
 class RegisterView(View):
     def __init__(self):
         super().__init__()
@@ -122,6 +123,8 @@ class ProfileView(View):
         else:
             return render(request, self.__template_name, {'profile_form': profile_form})
 
+
+@method_decorator(login_required, name='dispatch')
 class ProfilesView(ListView):
     model = Profile
     template_name = 'profile_list.html'
@@ -136,6 +139,7 @@ class ProfilesView(ListView):
         return context
 
 
+@method_decorator(login_required, name='dispatch')
 class ProfilesDetailView(DetailView):
     model = Profile
     template_name = 'profile_detail.html'
@@ -143,4 +147,7 @@ class ProfilesDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+
+
 

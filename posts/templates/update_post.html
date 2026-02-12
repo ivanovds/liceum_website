@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+        <div class="container account-forms-container">
+          <div class="row justify-content-center">
+                  <div class="col-auto ">
+                        <span>Edit your post</span>
+                      <form class="post-form" method="POST">
+                          {% csrf_token %}
+                          {% for field in post_form %}
+                              <div class=" ">
+                                  <div>{{ field }}</div>
+                                  {% if field.errors %}
+                                      {% for error in field.errors %}
+                                          <div>
+                                              {{ error }}
+                                          </div>
+                                      {% endfor %}
+                                  {% endif %}
+                              </div>
+                          {% endfor %}
+                          <input type="submit" id="sign-up-button" value="Update post">
+                      </form>
+                        {% if messages %}
+                            <ul class="messages">
+                                {% for message in messages %}
+                                <li>{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                  </div>
+            </div>
+        </div>
+
+{% endblock content %}
