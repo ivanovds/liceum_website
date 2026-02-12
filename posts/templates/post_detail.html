@@ -2,6 +2,21 @@
 
 {% block content %}
     <div class="container">
-        {% include 'post_component.html' %}
+        <div class="profile-detail-container">
+            <div class="row justify-content-center">
+                <div class='col-auto padding-reset  profile-detail-content'>
+                    <div class="row justify-content-start profile-preview-txt">
+                      <div class="col-auto author">{{ post.author.username }}</div>
+                   </div>
+                </div>
+                        <p class="p_img"><img src='{{ post.image.url }}' class='img-responsive'/></p>
+                  <div class="row justify-content-start profile-info">
+                        {% if  post.main_text %}
+                            <div class="d-flex justify-content-center"> {{ post.main_text}}</div>
+                        {% endif %}
+
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock content %}

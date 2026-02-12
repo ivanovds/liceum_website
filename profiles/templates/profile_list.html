@@ -16,7 +16,7 @@
                   {%  endif %}
               </div>
               <div class="profile-preview-txt">{{ obj.bio|linebreaks|truncatechars:320 }}</div>
-              <a href='{{ obj.get_absolute_url }}'><img src='http://127.0.0.1:8000/media/{{ obj.avatar }}' class='profile-picture' /></a>
+              <a href='{{ obj.get_absolute_url }}'><img src='{{ obj.avatar.url }}' class='profile-picture' /></a>
 
           </div>
       </div>

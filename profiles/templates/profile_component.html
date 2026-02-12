@@ -15,14 +15,14 @@
              </div>
                 <hr>
                 <p>Avatar:</p> <br>
-                <p class="p_img"><img src='http://127.0.0.1:8000/media/{{ profile.avatar }}' class='img-responsive'/></p>
+                <p class="p_img"><img src='{{ profile.avatar.url }}' class='img-responsive'/></p>
 
             {% if images %}
                 <p>Previous avatars:</p>
             {% endif %}
             {% for img in images %}
                 <hr>
-                <p class="p_img"><img src='http://127.0.0.1:8000/media/{{ img.image }}' class='img-responsive'/></p>
+                <p class="p_img"><img src='{{ img.image.url }}' class='img-responsive'/></p>
             {% endfor %}
         </div>
     </div>

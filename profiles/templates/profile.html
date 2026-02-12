@@ -8,7 +8,7 @@
                         <span>Your profile</span>
                       <form class="profile-form" method="POST" enctype="multipart/form-data">
                           {% csrf_token %}
-                          <p class="p_img"><img src='http://127.0.0.1:8000/media/{{ profile.avatar }}' class='img-responsive'/></p>
+                          <p class="p_img"><img src='{{ profile.avatar.url }}' class='img-responsive'/></p>
                           {% for field in profile_form %}
                               <div class=" ">
                                   <div>{{ field }}</div>
