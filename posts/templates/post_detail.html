@@ -14,8 +14,12 @@
                         {% if  post.main_text %}
                             <div class="d-flex justify-content-center"> {{ post.main_text}}</div>
                         {% endif %}
-
                 </div>
+            </div>
+            <div>
+                {% if is_author %}
+                    <a href="update/">edit your post</a>
+                {% endif %}
             </div>
         </div>
     </div>
